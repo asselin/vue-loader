@@ -44,7 +44,11 @@ module.exports = {
         // vue-loader options goes here
         options: {
           loaders: {
-            // ...
+            // load all <script> without "lang" attribute with coffee-loader
+            js: 'coffee',
+            // load <template> directly as HTML string, without piping it
+            // through vue-html-loader first
+            html: 'raw'
           }
         }
       }
