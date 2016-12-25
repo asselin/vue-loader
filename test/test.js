@@ -465,4 +465,65 @@ describe('vue-loader', function () {
       done()
     })
   })
+
+  it('extract custom blocks to a separate file', function (done) {
+    bundle(Object.assign({}, globalConfig, {
+      entry: './test/fixtures/custom-language.vue',
+      vue: {
+        loaders: {
+          'documentation': ExtractTextPlugin.extract('raw-loader'),
+        }
+      },
+      plugins: [
+        new ExtractTextPlugin('doc.md')
+      ]
+    }), function () {
+      var unitTest = mfs.readFileSync('/doc.md').toString()
+      unitTest = normalizeNewline(unitTest)
+      expect(unitTest).to.contain('This is example documentation for a component.')
+      done()
+    })
+  })
+
+  it('add custom blocks to the webpack output', function (done) {
+    bundle(Object.assign({}, globalConfig, {
+      entry: './test/fixtures/custom-language.vue',
+      vue: {
+        loaders: {
+          'unit-test': 'babel-loader'
+        }
+      }
+    }), function (code) {
+      expect(code).to.contain('describe(\'example\', function () {\n  it(\'basic\', function (done) {\n    done();\n  });\n})')
+      done()
+    })
+  })
+
+  it('custom blocks work with src imports', function (done) {
+    bundle(Object.assign({}, globalConfig, {
+      entry: './test/fixtures/custom-import.vue',
+      vue: {
+        loaders: {
+          'unit-test': 'babel-loader'
+        }
+      }
+    }), function (code) {
+      expect(code).to.contain('describe(\'example\', function () {\n  it(\'basic\', function (done) {\n    done();\n  });\n})')
+      done()
+    })
+  })
+
+  it('custom blocks can be removed from the output', function (done) {
+    bundle(Object.assign({}, globalConfig, {
+      entry: './test/fixtures/custom-language.vue',
+      vue: {
+        loaders: {
+          'unit-test': 'null-loader'
+        }
+      }
+    }), function (code) {
+      expect(code).not.to.contain('describe(\'example\', function () {\n  it(\'basic\', function (done) {\n    done();\n  });\n})')
+      done()
+    })
+  })
 })

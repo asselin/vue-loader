@@ -41,7 +41,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue',
-        // vue-loader options goes here
+        // vue-loader options go here
         options: {
           loaders: {
             // load all <script> without "lang" attribute with coffee-loader
