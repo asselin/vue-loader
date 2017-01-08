@@ -5,7 +5,6 @@ var webpack = require('webpack')
 var MemoryFS = require('memory-fs')
 var jsdom = require('jsdom')
 var expect = require('chai').expect
-var rimraf = require('rimraf')
 var genId = require('../lib/gen-id')
 var SourceMapConsumer = require('source-map').SourceMapConsumer
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
@@ -73,7 +72,11 @@ function test (options, assert) {
 
 function mockRender (options, data) {
   return options.render.call(Object.assign({
-    _h (tag, data, children) {
+    _v (val) {
+      return val
+    },
+    _self: {},
+    $createElement (tag, data, children) {
       if (Array.isArray(data)) {
         children = data
         data = null

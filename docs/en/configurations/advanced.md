@@ -40,8 +40,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue',
-        // vue-loader options go here
+        loader: 'vue-loader',
         options: {
           loaders: {
             // load all <script> without "lang" attribute with coffee-loader
