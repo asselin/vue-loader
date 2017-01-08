@@ -24,7 +24,7 @@ export default {
 </style>
 
 <custom1>
-	This could be e.g. documentation for the component.
+  This could be e.g. documentation for the component.
 </custom1>
 ```
 
@@ -72,7 +72,7 @@ More details can be found in [Using Pre-Processors](../configurations/pre-proces
 
 ### Custom Blocks
 
-Additional custom blocks can be included in a `*.vue` file for any project specific needs.  `vue-loader` will use the tag name to look up which webpack loaders should be applied to the contents of the section.  The webpack loaders should be specified in the `loaders` hash of the `vue` section of the webpack configuration in the same way that languages are specified for the standard sections of the file.  See [Advanced Loader Configuration](../configurations/advanced.md).
+Additional custom blocks can be included in a `*.vue` file for any project specific needs. `vue-loader` will use the tag name to look up which webpack loaders should be applied to the contents of the section. The webpack loaders should be specified in the `loaders` hash of the `vue` section of the webpack configuration in the same way that languages are specified for the standard sections of the file. See [Advanced Loader Configuration](../configurations/advanced.md).
 
 Example:
 
