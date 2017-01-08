@@ -559,4 +559,33 @@ describe('vue-loader', function () {
       done()
     })
   })
+
+  it('passes attributes as options to the loader', function (done) {
+    bundle({
+      entry: './test/fixtures/custom-options.vue',
+      vue: {
+        loaders: {
+          'unit-test': 'babel-loader!skeleton-loader'
+        }
+      },
+      plugins: [
+        new webpack.LoaderOptionsPlugin({
+          options: {
+            skeletonLoader: {
+              procedure: function(content, sourceMap, callback, options) {
+                expect(options.foo).to.equal('bar');
+                expect(options.opt2).to.equal('value2');
+
+                // Return the content to output.
+                return content;
+              }
+            }
+          }
+        })
+      ]
+    }, function (code, warnings) {
+      expect(code).to.contain('describe(\'example\', function () {\n  it(\'basic\', function (done) {\n    done();\n  });\n})')
+      done()
+    })
+  })
 })
